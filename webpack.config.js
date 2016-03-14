@@ -9,8 +9,12 @@ module.exports = {
     },
     module: {
         loaders: [{
+            test: /\.js$/,
             exclude: /node_modules/,
             loader: 'babel'
+        }, {
+            test: /\.hbs/,
+            loader: 'handlebars-loader'
         }]
     },
     resolve: {

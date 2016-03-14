@@ -1,7 +1,10 @@
-import Node from 'node/Node';
+import Tree from './Tree'
 
-let name = 'AIgars';
-new Node({
-   title:'Test Title'
-});
-alert(name);
+new Tree({
+    el: document.querySelector('[data-component=tree]'),
+    data: {
+        "title": "Hello Node",
+        nodes: []
+    }
+})
+;

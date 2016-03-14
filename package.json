@@ -10,6 +10,9 @@
   "author": "Aigars Beinarovics",
   "license": "ISC",
   "devDependencies": {
+    "babel-core": "^6.0.0",
+    "babel-loader": "^6.0.0",
+    "babel-preset-es2015": "^6.0.0",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0",
     "handlebars": "^4.0.5",
