@@ -1,0 +1,11 @@
+.tree-item {
+    cursor:pointer;
+}
+
+.tree-item{
+    display: inline-block;
+}
+
+.node.closed ul {
+    display: none;
+}
