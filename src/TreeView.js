@@ -8,7 +8,7 @@ export default class TreeView {
         this._data = data;
 
         for (let t of this._data) {
-            new Tree(t);
+            new Tree(t, this._el);
         }
     }
 
