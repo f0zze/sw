@@ -1,5 +1,5 @@
 'use strict';
-import template from './tree-item.hbs'
+import template from './tree/tree-item.hbs'
 import Tree from './tree/Tree'
 
 export default class TreeView {

@@ -1,4 +1,4 @@
-import templateFn from '../tree-item.hbs';
+import templateFn from './tree-item.hbs';
 import TreeStore from '../storage/TreeStorage';
 
 console.log(TreeStore);
@@ -18,8 +18,12 @@ export default class Tree {
 
         this._nodeElement = this._createNode();
         this._icon = this._nodeElement.querySelector('.tree__icon');
+
         //this._el.addEventListener('click', this._onTreeItemClick.bind(this));
+
         //this._el.addEventListener('click', this._onTreeItemClick);
+
+
         this._el.onclick = (e) => {
             let tree = e.target.closest('.tree');
             if (tree) {
