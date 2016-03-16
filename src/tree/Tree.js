@@ -1,23 +1,22 @@
 import templateFn from './tree-item.hbs';
 import TreeStore from '../storage/TreeStorage';
 
+const COLLAPSED_CLASS_NAME = "closed";
 const storage = new TreeStore();
 
 export default class Tree {
 
-    constructor({id,title,nodes = []}, element) {
+    constructor({id,title,nodes = []}, elToInsertIn) {
         this._id = id;
         this._title = title;
         this._nodes = nodes;
-        this._el = element;
+        this._el = elToInsertIn;
         this._nodeElement = this._createNode();
         this._icon = this._nodeElement.querySelector('.tree__icon');
 
         //this._el.addEventListener('click', this._onTreeItemClick.bind(this));
 
         //this._el.addEventListener('click', this._onTreeItemClick);
-
-        this._restoreState(this._id);
 
         this._el.onclick = (e) => {
             let tree = e.target.closest('.tree');
@@ -27,30 +26,33 @@ export default class Tree {
             e.stopPropagation();
         };
 
+        this._restoreState(this._id);
         this._render();
 
     }
 
     _restoreState(id) {
-        let liElement = this._el.closest('.tree');
+        let treeNode = this._el.closest('.tree');
 
         if (!storage.exists(id)) {
             storage.setExpanded(id);
+
             return;
         }
 
-        if (liElement) {
+        if (treeNode) {
             if (storage.isCollapsed(this._id)) {
-                liElement.classList.add('closed');
+                treeNode.classList.add(COLLAPSED_CLASS_NAME);
             } else {
-                liElement.classList.remove('closed');
+                treeNode.classList.remove(COLLAPSED_CLASS_NAME);
             }
         }
     }
 
     _changeTreeState(tree) {
-        tree.classList.toggle("closed");
-        if (tree.classList.contains("closed")) {
+        tree.classList.toggle(COLLAPSED_CLASS_NAME);
+
+        if (tree.classList.contains(COLLAPSED_CLASS_NAME)) {
             storage.setCollapsed(this._id);
         } else {
             storage.setExpanded(this._id);

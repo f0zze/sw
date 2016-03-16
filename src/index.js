@@ -19,7 +19,23 @@ new TreeView({
                 },
                 {
                     "id": 433,
-                    "title": "Child 2"
+                    "title": "Child 2",
+                    nodes: [
+                        {
+                            "id": 1211,
+                            "title": "Child 1",
+                            nodes: [
+                                {
+                                    "id": 1112,
+                                    "title": "Child 1.1"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 13,
+                            "title": "Child 2"
+                        }
+                    ]
                 }
             ]
         },
