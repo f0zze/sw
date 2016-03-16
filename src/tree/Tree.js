@@ -1,7 +1,6 @@
 import templateFn from './tree-item.hbs';
 import TreeStore from '../storage/TreeStorage';
 
-console.log(TreeStore);
 const storage = new TreeStore();
 
 export default class Tree {
@@ -11,11 +10,6 @@ export default class Tree {
         this._title = title;
         this._nodes = nodes;
         this._el = element;
-        this._opened = true;
-
-        storage.setNodeState(this._id, true);
-
-
         this._nodeElement = this._createNode();
         this._icon = this._nodeElement.querySelector('.tree__icon');
 
@@ -23,20 +17,44 @@ export default class Tree {
 
         //this._el.addEventListener('click', this._onTreeItemClick);
 
+        this._restoreState(this._id);
 
         this._el.onclick = (e) => {
             let tree = e.target.closest('.tree');
             if (tree) {
-                this._changeIcon();
-                tree.classList.toggle("closed");
+                this._changeTreeState(tree);
             }
-
             e.stopPropagation();
-
         };
 
         this._render();
 
+    }
+
+    _restoreState(id) {
+        let liElement = this._el.closest('.tree');
+
+        if (!storage.exists(id)) {
+            storage.setExpanded(id);
+            return;
+        }
+
+        if (liElement) {
+            if (storage.isCollapsed(this._id)) {
+                liElement.classList.add('closed');
+            } else {
+                liElement.classList.remove('closed');
+            }
+        }
+    }
+
+    _changeTreeState(tree) {
+        tree.classList.toggle("closed");
+        if (tree.classList.contains("closed")) {
+            storage.setCollapsed(this._id);
+        } else {
+            storage.setExpanded(this._id);
+        }
     }
 
     _changeIcon() {

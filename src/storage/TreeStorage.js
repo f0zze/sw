@@ -1,15 +1,44 @@
+const EXPANDED = "expanded";
+const COLLAPSED = "collapsed";
+const PREFIX = "TREE-STATUS-ID-";
+
 export default class TreeStorage {
 
     constructor() {
-        this.getState = this._getState;
-        this.setNodeState = this._setState;
+        this.isExpanded = this._isExpanded;
+        this.setExpanded = this._setExpanded;
+        this.isCollapsed = this._isCollapsed;
+        this.setCollapsed = this._setCollapsed;
+        this.exists = this._exists;
     }
 
-    _getState(nodeId) {
+    _getKey(id) {
+        return `${PREFIX}${id}`;
     }
 
-    _setState(nodeId, state) {
-        window.localStorage.setItem(String(nodeId), state)
+    _setExpanded(id) {
+        let key = this._getKey(id);
+        window.localStorage.setItem(key, EXPANDED);
+    }
+
+    _isExpanded(id) {
+        let key = this._getKey(id);
+        return window.localStorage.getItem(key) === EXPANDED;
+    }
+
+    _setCollapsed(id) {
+        let key = this._getKey(id);
+        window.localStorage.setItem(key, COLLAPSED);
+    }
+
+    _isCollapsed(id) {
+        let key = this._getKey(id);
+        return window.localStorage.getItem(key) === COLLAPSED;
+    }
+
+    _exists(id) {
+        let key = this._getKey(id);
+        return window.localStorage.getItem(key) ? true : false;
     }
 
 
